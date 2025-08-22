@@ -7,39 +7,49 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ElementCollection;
 
 @Entity
 public class Job {
     
  @Id
- @GeneratedValue(strategy=GenerationType.UUID)
- private String jobId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String jobId;
 
- private String jobProfile;
+    private String jobProfile;
 
- private String jobRole;
+    private String jobRole;
 
- private String description;
+    @Lob
+    @Column(columnDefinition = "TEXT")  // for MySQL / PostgreSQL
+    private String description;
 
- private String experience;
+    private String experience;
 
- private String shift;
+    private String shift;
 
- private String department;
+    private String department;
 
- private String employmentType;
+    private String employmentType;
 
- private String isActive;
+    private String isActive;
 
- private String expectedSalary;
+    private String expectedSalary;
 
- private LocalDate postedDate;
+    private LocalDate postedDate;
 
- private List<String> keyword;
+    // For List<String>, you should map separately using @ElementCollection
+    // Example:
+    @ElementCollection
+    private List<String> keyword;
 
- private List<String> rolesAndResponsibility;
+    @ElementCollection
+    private List<String> rolesAndResponsibility;
 
- private String vacancy;
+    private String vacancy;
+
 
     public Job(String department, String description, String employmentType, String experience, String jobId, String jobProfile, String jobRole, String shift, String isActive,String expectedSalary, LocalDate postedDate, List<String> keyword, List<String> rolesAndResponsibility, String vacancy) {
         this.department = department;
@@ -188,3 +198,4 @@ public class Job {
 
 
 }
+
